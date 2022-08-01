@@ -1,10 +1,12 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { Layout } from './components/Layout'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return <div>Hello world</div>
+  return (
+    <Layout>
+      <div>1</div>
+      <div>2</div>
+    </Layout>
+  )
 }
 
 export default App
