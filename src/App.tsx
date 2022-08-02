@@ -1,6 +1,6 @@
 import { Layout } from '~/components/Layout'
 import { Markdown } from '~/features/markdown/Markdown'
-import { Editor } from '~/features/editor/Editor'
+import { Editor } from '~/features/editor'
 
 function App() {
   return (
