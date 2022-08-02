@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { usePageStore } from '~/stores/page'
+
 export const Markdown = () => {
-  return <div>Markdown</div>
+  const { title } = usePageStore()
+  return <div>{title}</div>
 }
