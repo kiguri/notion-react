@@ -1,6 +1,6 @@
 import { Layout } from '~/components/Layout'
 import { Markdown } from '~/features/markdown/Markdown'
-import { Editor } from '~/features/editor'
+import { Notion } from '~/features/notion'
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
         <Markdown />
       </div>
       <div className="shrink-0 px-24 min-w-[50%] mx-auto">
-        <Editor />
+        <Notion />
       </div>
     </Layout>
   )

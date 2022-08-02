@@ -13,6 +13,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.5",
+    "@dnd-kit/sortable": "^7.0.1",
+    "@dnd-kit/utilities": "^3.2.0",
     "@tiptap/extension-bold": "2.0.0-beta.28",
     "@tiptap/extension-document": "2.0.0-beta.17",
     "@tiptap/extension-history": "2.0.0-beta.26",
@@ -21,6 +24,8 @@
     "@tiptap/extension-text": "2.0.0-beta.17",
     "@tiptap/react": "2.0.0-beta.114",
     "@tiptap/starter-kit": "2.0.0-beta.191",
+    "clsx": "^1.2.1",
+    "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.0.0"

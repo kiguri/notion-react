@@ -7,6 +7,7 @@ export const Markdown = () => {
   const markdown = blocks.map((block) => {
     if (block.type === BlockType.TEXT) {
       return {
+        id: block.id,
         type: BlockType.TEXT,
         details: {
           value: (block.details?.value as string)

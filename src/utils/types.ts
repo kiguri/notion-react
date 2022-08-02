@@ -1,6 +1,8 @@
-import { TextBlock } from '~/features/editor'
+import { TextBlock } from '~/features/notion'
+import { DividerBlock } from '~/features/notion'
 
 export interface Block {
+  id: string
   type: BlockType
   details?: Details
 }
@@ -10,7 +12,7 @@ export enum BlockType {
   H1 = 'H1',
   H2 = 'H2',
   H3 = 'H3',
-  Divider = 'DIVIDER',
+  DIVIDER = 'DIVIDER',
 }
 
 export interface Details {
@@ -19,4 +21,5 @@ export interface Details {
 
 export const BlockComponents = {
   [BlockType.TEXT]: TextBlock,
+  [BlockType.DIVIDER]: DividerBlock,
 }
