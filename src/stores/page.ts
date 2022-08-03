@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid'
 import { arrayMove } from '@dnd-kit/sortable'
 
 import { Block, BlockType } from '~/utils/types'
+import { UniqueIdentifier } from '@dnd-kit/core'
 
 type Page = {
   title: string
@@ -12,6 +13,7 @@ type Page = {
 type PageStore = {
   page: Page
   reorderBlocks: (activeIndex: number, overIndex: number) => void
+  deleteBlock: (id: UniqueIdentifier) => void
 }
 
 const initialData: Page = {
@@ -105,6 +107,14 @@ export const usePageStore = create<PageStore>((set) => ({
       page: {
         ...state.page,
         blocks: arrayMove([...state.page.blocks], activeIndex, overIndex),
+      },
+    }))
+  },
+  deleteBlock: (id) => {
+    set((state) => ({
+      page: {
+        ...state.page,
+        blocks: state.page.blocks.filter((block) => block.id !== id),
       },
     }))
   },

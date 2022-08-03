@@ -1,6 +1,3 @@
-import { TextBlock } from '~/features/notion'
-import { DividerBlock } from '~/features/notion'
-
 export interface Block {
   id: string
   type: BlockType
@@ -17,9 +14,4 @@ export enum BlockType {
 
 export interface Details {
   value?: string
-}
-
-export const BlockComponents = {
-  [BlockType.TEXT]: TextBlock,
-  [BlockType.DIVIDER]: DividerBlock,
 }

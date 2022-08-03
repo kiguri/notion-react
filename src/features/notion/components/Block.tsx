@@ -3,9 +3,13 @@ import { CSS } from '@dnd-kit/utilities'
 import cx from 'clsx'
 import { Delete, Add } from 'styled-icons/material'
 
+import { DividerBlock } from './blocks/DividerBlock'
+import { TextBlock } from './blocks/TextBlock'
+import { HeadingBlock } from './blocks/HeadingBlock'
 import { Tooltip } from '~/components/Elements'
 import { BlockMenu } from './BlockMenu'
 import { Block, BlockType } from '~/utils/types'
+import { usePageStore } from '~/stores/page'
 
 export const BlockComponent = ({ id, type, details }: Block) => {
   const {
@@ -17,9 +21,15 @@ export const BlockComponent = ({ id, type, details }: Block) => {
     transition,
   } = useSortable({ id })
 
+  const { deleteBlock } = usePageStore()
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+  }
+
+  const handleDelete = () => {
+    deleteBlock(id)
   }
 
   return (
@@ -51,7 +61,9 @@ export const BlockComponent = ({ id, type, details }: Block) => {
             </span>
           }
         >
-          <Delete className="w-6 h-6 hover:bg-neutral-100 hover:text-neutral-400 p-0.5 rounded group-hover:opacity-100 opacity-0" />
+          <button onClick={handleDelete}>
+            <Delete className="w-6 h-6 hover:bg-neutral-100 hover:text-neutral-400 p-0.5 rounded group-hover:opacity-100 opacity-0" />
+          </button>
         </Tooltip>
         <Tooltip
           content={
@@ -68,11 +80,19 @@ export const BlockComponent = ({ id, type, details }: Block) => {
 
       <div
         className={cx(
-          'w-full relative',
+          'w-full relative cursor-text',
           'px-4 sm:px-0' && type !== BlockType.DIVIDER,
         )}
       >
-        {details?.value}
+        {type === BlockType.DIVIDER ? (
+          <DividerBlock />
+        ) : type === BlockType.H1 ||
+          type === BlockType.H2 ||
+          type === BlockType.H3 ? (
+          <HeadingBlock block={{ id, type, details }} />
+        ) : (
+          details?.value
+        )}
       </div>
     </div>
   )

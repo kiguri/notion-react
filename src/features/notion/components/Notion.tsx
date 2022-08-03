@@ -12,7 +12,8 @@ export const Notion = () => {
     <div className="w-[65ch] mx-auto my-24">
       <h1
         id="title"
-        contentEditable="true"
+        contentEditable
+        suppressContentEditableWarning
         spellCheck="false"
         data-ph="Untitled"
         className={cx(
