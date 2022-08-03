@@ -1,22 +1,10 @@
-import * as React from 'react'
-import { DndContext } from '@dnd-kit/core'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import {
-  restrictToVerticalAxis,
-  restrictToWindowEdges,
-} from '@dnd-kit/modifiers'
 import cx from 'clsx'
-import type { DragEndEvent } from '@dnd-kit/core'
 
 import { usePageStore } from '~/stores/page'
-import { BlockComponent } from './Block'
+import { SortableList } from './SortableList'
 
 export const Notion = () => {
-  const { title, blocks } = usePageStore()
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    // console.log(event)
-  }
+  const { title } = usePageStore()
 
   return (
     <div className="w-[65ch] mx-auto my-24">
@@ -34,16 +22,7 @@ export const Notion = () => {
       >
         {title}
       </h1>
-      <DndContext
-        onDragEnd={handleDragEnd}
-        modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
-      >
-        <SortableContext items={blocks} strategy={verticalListSortingStrategy}>
-          {blocks.map((block) => (
-            <BlockComponent key={block.id} {...block} />
-          ))}
-        </SortableContext>
-      </DndContext>
+      <SortableList />
     </div>
   )
 }

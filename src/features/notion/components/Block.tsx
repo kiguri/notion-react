@@ -8,8 +8,14 @@ import { BlockMenu } from './BlockMenu'
 import { Block, BlockType } from '~/utils/types'
 
 export const BlockComponent = ({ id, type, details }: Block) => {
-  const { attributes, listeners, setNodeRef, transform, transition, data } =
-    useSortable({ id })
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    setActivatorNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id })
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -26,8 +32,8 @@ export const BlockComponent = ({ id, type, details }: Block) => {
         'pt-6 first:pt-0': type === BlockType.H2,
       })}
       {...attributes}
-      {...listeners}
     >
+      {/* Buttons */}
       <div
         className={cx(
           'h-full px-2 pl-4 py-1.5 text-center cursor-pointer transition-all duration-150 text-neutral-300 flex',
@@ -57,16 +63,16 @@ export const BlockComponent = ({ id, type, details }: Block) => {
           <Add className="w-6 h-6 hover:bg-neutral-100 hover:text-neutral-400 p-0.5 rounded group-hover:opacity-100 opacity-0" />
         </Tooltip>
 
-        <BlockMenu />
+        <BlockMenu ref={setActivatorNodeRef} listeners={listeners} />
+      </div>
 
-        <div
-          className={cx(
-            'w-full relative',
-            'px-4 sm:px-0' && type !== BlockType.DIVIDER,
-          )}
-        >
-          {details?.value}
-        </div>
+      <div
+        className={cx(
+          'w-full relative',
+          'px-4 sm:px-0' && type !== BlockType.DIVIDER,
+        )}
+      >
+        {details?.value}
       </div>
     </div>
   )
