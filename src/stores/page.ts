@@ -10,13 +10,13 @@ type PageStore = {
 const initialData: PageStore = {
   title: 'Pigaboo',
   blocks: [
-    {
-      id: nanoid(),
-      type: BlockType.H1,
-      details: {
-        value: 'Get Started',
-      },
-    },
+    // {
+    //   id: nanoid(),
+    //   type: BlockType.H1,
+    //   details: {
+    //     value: 'Get Started',
+    //   },
+    // },
     {
       id: nanoid(),
       type: BlockType.DIVIDER,
