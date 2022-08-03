@@ -2,7 +2,9 @@ import { usePageStore } from '~/stores/page'
 import { BlockType } from '~/utils/types'
 
 export const Markdown = () => {
-  const { blocks } = usePageStore()
+  const {
+    page: { blocks },
+  } = usePageStore()
 
   const markdown = blocks.map((block) => {
     if (block.type === BlockType.TEXT) {

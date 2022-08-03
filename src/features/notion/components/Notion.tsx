@@ -4,7 +4,9 @@ import { usePageStore } from '~/stores/page'
 import { SortableList } from './SortableList'
 
 export const Notion = () => {
-  const { title } = usePageStore()
+  const {
+    page: { title },
+  } = usePageStore()
 
   return (
     <div className="w-[65ch] mx-auto my-24">

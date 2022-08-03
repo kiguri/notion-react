@@ -1,22 +1,29 @@
 import create from 'zustand'
 import { nanoid } from 'nanoid'
+import { arrayMove } from '@dnd-kit/sortable'
+
 import { Block, BlockType } from '~/utils/types'
 
-type PageStore = {
+type Page = {
   title: string
   blocks: Block[]
 }
 
-const initialData: PageStore = {
+type PageStore = {
+  page: Page
+  reorderBlocks: (activeIndex: number, overIndex: number) => void
+}
+
+const initialData: Page = {
   title: 'Pigaboo',
   blocks: [
-    // {
-    //   id: nanoid(),
-    //   type: BlockType.H1,
-    //   details: {
-    //     value: 'Get Started',
-    //   },
-    // },
+    {
+      id: nanoid(),
+      type: BlockType.H1,
+      details: {
+        value: 'Get Started',
+      },
+    },
     {
       id: nanoid(),
       type: BlockType.DIVIDER,
@@ -91,4 +98,14 @@ const initialData: PageStore = {
   ],
 }
 
-export const usePageStore = create<PageStore>((set) => initialData)
+export const usePageStore = create<PageStore>((set) => ({
+  page: initialData,
+  reorderBlocks: (activeIndex, overIndex) => {
+    set((state) => ({
+      page: {
+        ...state.page,
+        blocks: arrayMove([...state.page.blocks], activeIndex, overIndex),
+      },
+    }))
+  },
+}))
