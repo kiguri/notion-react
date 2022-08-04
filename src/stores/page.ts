@@ -81,7 +81,7 @@ const initialData: Page = {
       type: BlockType.TEXT,
       details: {
         value:
-          '<p>5. <strong>Bold</strong> and <em>italicize</em> using markdown e.g. *italic* or **bold**</p>',
+          '<p><strong><em>5. Boldand <em>italicize</em> using markdown e.g. *italic* or **bold**</em></strong></p>',
       },
     },
     {
