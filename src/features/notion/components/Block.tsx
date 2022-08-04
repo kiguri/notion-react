@@ -80,7 +80,11 @@ export const BlockComponent = React.memo(
             </button>
           </Tooltip>
 
-          <BlockMenu ref={setActivatorNodeRef} listeners={listeners} />
+          <BlockMenu
+            ref={setActivatorNodeRef}
+            listeners={listeners}
+            block={block}
+          />
         </div>
 
         <div

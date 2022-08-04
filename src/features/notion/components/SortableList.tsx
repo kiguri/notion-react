@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { nanoid } from 'nanoid'
-import { DndContext } from '@dnd-kit/core'
+import { DndContext, MouseSensor, useSensor } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import {
   restrictToVerticalAxis,
@@ -76,6 +76,11 @@ export const SortableList = () => {
       )} of ${blocks.length}.`
     },
   }
+  const sensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 0,
+    },
+  })
 
   const onDragStart = ({ active }: DragStartEvent) => {
     if (!active) {
@@ -115,6 +120,7 @@ export const SortableList = () => {
     <DndContext
       accessibility={{ announcements }}
       modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
+      sensors={[sensor]}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
     >

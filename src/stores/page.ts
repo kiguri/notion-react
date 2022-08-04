@@ -16,6 +16,7 @@ type PageStore = {
   addBlock: (block: Block, idx: number) => void
   deleteBlock: (id: UniqueIdentifier) => void
   updateBlockValue: (id: UniqueIdentifier, value: string) => void
+  updateBlockType: (id: UniqueIdentifier, type: BlockType) => void
 }
 
 const initialData: Page = {
@@ -141,6 +142,16 @@ export const usePageStore = create<PageStore>((set) => ({
       page: {
         ...state.page,
         blocks: state.page.blocks.filter((block) => block.id !== id),
+      },
+    }))
+  },
+  updateBlockType(id, type) {
+    set((state) => ({
+      page: {
+        ...state.page,
+        blocks: state.page.blocks.map((block) =>
+          block.id === id ? { ...block, type } : block,
+        ),
       },
     }))
   },
