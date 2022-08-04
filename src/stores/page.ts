@@ -13,6 +13,7 @@ type Page = {
 type PageStore = {
   page: Page
   reorderBlocks: (activeIndex: number, overIndex: number) => void
+  addBlock: (block: Block, idx: number) => void
   deleteBlock: (id: UniqueIdentifier) => void
   updateBlockValue: (id: UniqueIdentifier, value: string) => void
 }
@@ -110,6 +111,18 @@ export const usePageStore = create<PageStore>((set) => ({
         blocks: arrayMove([...state.page.blocks], activeIndex, overIndex),
       },
     }))
+  },
+  addBlock(block, idx) {
+    set(({ page }) => {
+      let tmp = [...page.blocks]
+      tmp.splice(idx + 1, 0, block)
+      return {
+        page: {
+          ...page,
+          blocks: [...tmp],
+        },
+      }
+    })
   },
   updateBlockValue(id, value) {
     set((state) => ({

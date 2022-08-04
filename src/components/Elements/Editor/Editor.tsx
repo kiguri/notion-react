@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
@@ -11,7 +12,7 @@ interface Editor {
   update: (value: string) => void
 }
 
-export const Editor = ({ value, update }: Editor) => {
+export const Editor = React.memo(({ value, update }: Editor) => {
   const editor = useEditor({
     extensions: [Document, Paragraph, Text, Bold, Italic, History],
     editorProps: {
@@ -23,9 +24,15 @@ export const Editor = ({ value, update }: Editor) => {
     },
   })
 
+  React.useEffect(() => {
+    if (!value && !editor?.isFocused) {
+      editor?.commands.focus()
+    }
+  }, [value, editor])
+
   return (
     <>
       <EditorContent editor={editor} spellCheck={false} />
     </>
   )
-}
+})

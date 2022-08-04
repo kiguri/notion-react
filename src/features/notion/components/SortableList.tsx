@@ -1,10 +1,7 @@
 import * as React from 'react'
+import { nanoid } from 'nanoid'
 import { DndContext } from '@dnd-kit/core'
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import {
   restrictToVerticalAxis,
   restrictToWindowEdges,
@@ -16,6 +13,7 @@ import type {
   UniqueIdentifier,
 } from '@dnd-kit/core'
 
+import { Block, BlockType } from '~/utils/types'
 import { BlockComponent } from './Block'
 import { usePageStore } from '~/stores/page'
 
@@ -23,6 +21,8 @@ export const SortableList = () => {
   const {
     page: { blocks },
     reorderBlocks,
+    addBlock,
+    deleteBlock,
   } = usePageStore()
   const [activeId, setActiveId] = React.useState<UniqueIdentifier | null>(null)
 
@@ -36,6 +36,7 @@ export const SortableList = () => {
 
   const getIndex = (id: UniqueIdentifier) =>
     blocks.findIndex(({ id: blockId }) => blockId === id)
+
   const getPosition = (id: UniqueIdentifier) => getIndex(id)
   const activeIndex = activeId ? getIndex(activeId) : -1
   const announcements: Announcements = {
@@ -94,6 +95,22 @@ export const SortableList = () => {
     }
   }
 
+  const handleDelete = React.useCallback((id: UniqueIdentifier) => {
+    deleteBlock(id)
+  }, [])
+
+  const handleAddNewBlock = (currentBlockId: UniqueIdentifier) => {
+    const blockIdx = getIndex(currentBlockId)
+    const newBlock: Block = {
+      id: nanoid(),
+      type: BlockType.TEXT,
+      details: {
+        value: '',
+      },
+    }
+    addBlock(newBlock, blockIdx)
+  }
+
   return (
     <DndContext
       accessibility={{ announcements }}
@@ -103,7 +120,12 @@ export const SortableList = () => {
     >
       <SortableContext items={blocks} strategy={verticalListSortingStrategy}>
         {blocks.map((block) => (
-          <BlockComponent key={block.id} {...block} />
+          <BlockComponent
+            key={block.id}
+            block={block}
+            onDelete={handleDelete}
+            onAdd={handleAddNewBlock}
+          />
         ))}
       </SortableContext>
     </DndContext>

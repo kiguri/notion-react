@@ -25,6 +25,7 @@ export const Notion = () => {
       >
         {title}
       </h1>
+
       <SortableList />
     </div>
   )
