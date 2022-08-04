@@ -7,20 +7,22 @@ import Italic from '@tiptap/extension-italic'
 import History from '@tiptap/extension-history'
 
 interface Editor {
-  modelValue: string
+  value: string | undefined
   update: (value: string) => void
 }
 
-export const Editor = ({ modelValue, update }: Editor) => {
+export const Editor = ({ value, update }: Editor) => {
   const editor = useEditor({
     extensions: [Document, Paragraph, Text, Bold, Italic, History],
     editorProps: {
       handleDrop: () => true,
     },
-    content: modelValue,
-    onUpdate: ({ editor }) =>
-      update(editor.getHTML().replaceAll(/\<br.*?\>/g, '')),
+    content: value,
+    onUpdate: ({ editor }) => {
+      update(editor.getHTML().replaceAll(/\<br.*?\>/g, ''))
+    },
   })
+
   return (
     <>
       <EditorContent editor={editor} spellCheck={false} />

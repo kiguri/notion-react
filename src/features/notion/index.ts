@@ -1,5 +1,6 @@
 export * from './components/blocks/DividerBlock'
 export * from './components/blocks/TextBlock'
+export * from './components/blocks/HeadingBlock'
 export * from './components/Notion'
 export * from './components/BlockMenu'
 export * from './components/SortableList'

@@ -90,9 +90,9 @@ export const BlockComponent = ({ id, type, details }: Block) => {
           type === BlockType.H2 ||
           type === BlockType.H3 ? (
           <HeadingBlock block={{ id, type, details }} />
-        ) : (
-          details?.value
-        )}
+        ) : type === BlockType.TEXT ? (
+          <TextBlock block={{ id, type, details }} />
+        ) : null}
       </div>
     </div>
   )

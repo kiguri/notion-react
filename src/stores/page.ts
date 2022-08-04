@@ -14,6 +14,7 @@ type PageStore = {
   page: Page
   reorderBlocks: (activeIndex: number, overIndex: number) => void
   deleteBlock: (id: UniqueIdentifier) => void
+  updateBlockValue: (id: UniqueIdentifier, value: string) => void
 }
 
 const initialData: Page = {
@@ -102,7 +103,7 @@ const initialData: Page = {
 
 export const usePageStore = create<PageStore>((set) => ({
   page: initialData,
-  reorderBlocks: (activeIndex, overIndex) => {
+  reorderBlocks(activeIndex, overIndex) {
     set((state) => ({
       page: {
         ...state.page,
@@ -110,7 +111,19 @@ export const usePageStore = create<PageStore>((set) => ({
       },
     }))
   },
-  deleteBlock: (id) => {
+  updateBlockValue(id, value) {
+    set((state) => ({
+      page: {
+        ...state.page,
+        blocks: state.page.blocks.map((block) =>
+          block.id === id
+            ? { ...block, details: { ...block.details, value } }
+            : block,
+        ),
+      },
+    }))
+  },
+  deleteBlock(id) {
     set((state) => ({
       page: {
         ...state.page,
