@@ -5,5 +5,5 @@ import { usePageStore } from '../page'
 test('title', () => {
   const { result } = renderHook(() => usePageStore())
 
-  expect(result.current.title).toBe('Pigaboo')
+  expect(result.current.page.title).toBe('Pigaboo')
 })
